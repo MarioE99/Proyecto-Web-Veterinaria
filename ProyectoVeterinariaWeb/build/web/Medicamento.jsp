@@ -4,7 +4,9 @@
     Author     : meev9
 --%>
 
+<%@ page import="java.util.*" import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="edu.ujmd.conexiones.Conexion" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -115,5 +117,43 @@
             <input class="button" type="button" value="Enviar">
 
         </form>
+        <!--TABLA DE medicamento-->
+        <div class ="row col-md-6" style="margin-left: 400px; margin-top: -200px;">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre comercial</th>
+                        <th>Nombre generico</th>
+                        <th>Descripcion</th>
+                        <th>Reacciones Adversas</th>
+                        <th>Dosis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        Conexion con = new Conexion();
+                        con.setRs("SELECT * FROM medicamento");
+                        ResultSet rs = con.getRs();
+                        while (rs.next()) {
+                    %>
+                    <tr>
+                        <td><%=rs.getString("id")%></td>
+                        <td><%=rs.getString("Nom_Comercial")%></td>
+                        <td><%=rs.getString("Nom_Generico")%></td>
+                        <td><%=rs.getString("Descripcion")%></td>
+                        <td><%=rs.getString("Reacciones_Adversas")%></td>
+                        <td><%=rs.getString("Dosis")%></td>
+
+                        <td><a class="btn btn-danger" href="eliminarmedicamento.jsp?id=<%=rs.getString("id")%>">Eliminar</a></td>
+                    </tr>
+                    <%
+                        }
+                        con.cerrarConexion();
+                    %>
+                </tbody>
+            </table>
+        </div>
+
     </body>
 </html>

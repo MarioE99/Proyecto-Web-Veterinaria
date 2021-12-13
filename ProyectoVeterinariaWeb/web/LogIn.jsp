@@ -12,7 +12,7 @@
         <title>INICIAR SESION</title>
         <style>
 
-            .button {
+            button {
                 background-color: #4CAF50; /* Green */
                 border: none;
                 color: white;
@@ -23,7 +23,7 @@
                 font-size: 16px;
             }
 
-            .button:hover {
+            button:hover {
                 background-color: black;
                 color: white;
             }

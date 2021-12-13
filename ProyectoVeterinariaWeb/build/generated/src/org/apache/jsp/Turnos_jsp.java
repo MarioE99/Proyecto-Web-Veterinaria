@@ -3,6 +3,10 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.util.*;
+import java.sql.*;
+import java.*;
+import edu.ujmd.conexiones.Conexion;
 
 public final class Turnos_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -43,6 +47,23 @@ public final class Turnos_jsp extends org.apache.jasper.runtime.HttpJspBase
 
       out.write("\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+
+ String usuario = "";
+ HttpSession sesionOk = request.getSession();
+ if (sesionOk.getAttribute("usuario") == null) {
+
+      out.write('\n');
+      if (true) {
+        _jspx_page_context.forward("LogIn.jsp" + "?" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode("error", request.getCharacterEncoding())+ "=" + org.apache.jasper.runtime.JspRuntimeLibrary.URLEncode("Es obligatorio identificarse", request.getCharacterEncoding()));
+        return;
+      }
+      out.write('\n');
+
+ }
+
       out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
@@ -94,7 +115,7 @@ public final class Turnos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                padding: 20px;\n");
       out.write("            }\n");
       out.write("\n");
-      out.write("            .button {\n");
+      out.write("            button {\n");
       out.write("                background-color: #4CAF50; /* Green */\n");
       out.write("                border: none;\n");
       out.write("                color: white;\n");
@@ -105,7 +126,7 @@ public final class Turnos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                font-size: 16px;\n");
       out.write("            }\n");
       out.write("\n");
-      out.write("            .button:hover {\n");
+      out.write("            button:hover {\n");
       out.write("                background-color: black;\n");
       out.write("                color: white;\n");
       out.write("            }\n");
@@ -119,28 +140,111 @@ public final class Turnos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("        <h1>Formulario de turnos</h1>\n");
       out.write("\n");
-      out.write("        <form action=\"turnocontrol.jsp\" method=\"post\">\n");
+      out.write("        <div class=\"row col-md-5\">\n");
+      out.write("                <form role=\"form\" action=\"turnocontrol.jsp\" method=\"post\">\n");
+      out.write("                    <div class=\"col-md-10\">\n");
+      out.write("                        \n");
+      out.write("                        <div class=\"well well-sm\">\n");
+      out.write("                            <strong><span class=\"glyphicon glyphicon-asterisk\"></span>Campos requeridos</strong>\n");
+      out.write("                        </div>\n");
+      out.write("                        <div class=\"form-group\">\n");
+      out.write("                            <label for=\"id\">Id</label>\n");
+      out.write("                            <div class=\"input-group\">\n");
+      out.write("                                <input type=\"text\" class=\"form-control\" name=\"id\"  placeholder=\"Ingrese el ID\">\n");
+      out.write("                                <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-asterisk\"></span></span>\n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                        <div class=\"form-group\">\n");
+      out.write("                            <label for=\"Horario\">Escriba si es Diurno(D) o Nocturno(N)</label>\n");
+      out.write("                            <div class=\"input-group\">\n");
+      out.write("                                <input type=\"text\" class=\"form-control\" name=\"Horario\" id=\"Horario\" placeholder=\"Ingrese la hora\" required>\n");
+      out.write("                                <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-asterisk\"></span></span>\n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                        \n");
+      out.write("                         <div class=\"form-group\">\n");
+      out.write("                            <label for=\"Horario_Entrada\">Seleccione el horario de entrada</label>\n");
+      out.write("                            <div class=\"input-group\">\n");
+      out.write("                                <input type=\"date\" class=\"form-control\" name=\"Horario_Entrada\" id=\"entrada\" required>\n");
+      out.write("                                <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-asterisk\"></span></span>\n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                        \n");
+      out.write("                        <div class=\"form-group\">\n");
+      out.write("                            <label for=\"Horario_Salida\">Seleccione el horario de salida</label>\n");
+      out.write("                            <div class=\"input-group\">\n");
+      out.write("                                <input type=\"date\" class=\"form-control\" name=\"Horario_Salida\" id=\"entrada\" required>\n");
+      out.write("                                <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-asterisk\"></span></span>\n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                        <input type=\"submit\" class=\"btn btn-info\" value=\"Guardar\">\n");
+      out.write("                        \n");
+      out.write("                    </div>\n");
+      out.write("                </form>\n");
+      out.write("             \n");
+      out.write("                ");
       out.write("\n");
-      out.write("            <label for=\"id\">Código de turnos generado automáticamente</label>\n");
-      out.write("            <input type=\"number\" id=\"id\" name=\"id\" />\n");
-      out.write("            <div>\n");
-      out.write("                <label for=\"Horario\">Horario:</label>\n");
-      out.write("                <input type=\"text\" id=\"Horario\" name=\"Horario\" />\n");
+      out.write("                ");
+ if(request.getParameter("resultado") != null){ 
+      out.write("\n");
+      out.write("            <div class=\"alert alert-success col-md-10\">\n");
+      out.write("                <b> ");
+      out.print( request.getParameter("resultado") );
+      out.write(" </b>\n");
       out.write("            </div>\n");
-      out.write("            <div>\n");
-      out.write("                <label for=\"Horario_Entrada\">Horario de entrada:</label>\n");
-      out.write("                <input type=\"date\" name=\"Horario_Entrada\">\n");
+      out.write("                ");
+
+                    }
+                
+      out.write("                  \n");
       out.write("            </div>\n");
+      out.write("        \n");
+      out.write("        <!--TABLA DE TURNOS-->\n");
+      out.write("        <div class =\"row col-md-6\" style=\"margin-left: 400px; margin-top: -200px;\">\n");
+      out.write("    <table class=\"table table-striped table-bordered table-hover\">\n");
+      out.write("        <thead>\n");
+      out.write("            <tr>\n");
+      out.write("                <th>Id</th>\n");
+      out.write("                <th>Horario</th>\n");
+      out.write("                <th>Horario de entrada</th>\n");
+      out.write("                <th>Horario de salida</th>\n");
+      out.write("            </tr>\n");
+      out.write("        </thead>\n");
+      out.write("        <tbody>\n");
+      out.write("            ");
+
+                Conexion con = new Conexion();
+                con.setRs("SELECT * FROM turno");
+                ResultSet rs = con.getRs();
+                while(rs.next()){         
+            
       out.write("\n");
-      out.write("            <div>\n");
-      out.write("                <label for=\"Horario_Salida\">Horario de salida:</label>\n");
-      out.write("                <input type=\"date\" name=\"Horario_Salida\">\n");
+      out.write("            <tr>\n");
+      out.write("                <td>");
+      out.print(rs.getString("id") );
+      out.write("</td>\n");
+      out.write("                <td>");
+      out.print(rs.getString("Horario") );
+      out.write("</td>\n");
+      out.write("                 <td>");
+      out.print(rs.getString("Horario_Entrada") );
+      out.write("</td>\n");
+      out.write("                 <td>");
+      out.print(rs.getString("Horario_Salida") );
+      out.write("</td>\n");
+      out.write("                <td><a class=\"btn btn-danger\" href=\"eliminarturno.jsp?id=");
+      out.print(rs.getString("id") );
+      out.write("\">Eliminar</a></td>\n");
+      out.write("            </tr>\n");
+      out.write("            ");
+ 
+                }
+            con.cerrarConexion();
+            
       out.write("\n");
-      out.write("            </div>\n");
-      out.write("\n");
-      out.write("            <input class=\"button\" type=\"button\" value=\"Enviar\">\n");
-      out.write("\n");
-      out.write("        </form>\n");
+      out.write("        </tbody>\n");
+      out.write("    </table>\n");
+      out.write("</div>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

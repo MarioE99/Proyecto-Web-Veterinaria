@@ -4,7 +4,9 @@
     Author     : meev9
 --%>
 
+<%@ page import="java.util.*" import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="edu.ujmd.conexiones.Conexion" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -109,5 +111,43 @@
 
 
         </form>
+        
+        
+         <!--TABLA DE USUARIOS-->
+        <div class ="row col-md-6" style="margin-left: 400px; margin-top: -200px;">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre del rol</th>
+                 <th>Nombre del usuario</th>
+                  <th>Contraseña</th>
+                  
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                Conexion con = new Conexion();
+                con.setRs("SELECT * FROM usuarios");
+                ResultSet rs = con.getRs();
+                while(rs.next()){         
+            %>
+            <tr>
+                <td><%=rs.getString("id") %></td>
+                <td><%=rs.getString("id_rol") %></td>
+                 <td><%=rs.getString("usuario") %></td>
+                <td><%=rs.getString("contraseña") %></td>
+                
+                <td><a class="btn btn-danger" href="eliminarusuario.jsp?id=<%=rs.getString("id") %>">Eliminar</a></td>
+            </tr>
+            <% 
+                }
+            con.cerrarConexion();
+            %>
+        </tbody>
+    </table>
+</div>
+        
+        
     </body>
 </html>

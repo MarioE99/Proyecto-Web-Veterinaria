@@ -51,7 +51,7 @@ public final class LogIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <title>INICIAR SESION</title>\n");
       out.write("        <style>\n");
       out.write("\n");
-      out.write("            .button {\n");
+      out.write("            button {\n");
       out.write("                background-color: #4CAF50; /* Green */\n");
       out.write("                border: none;\n");
       out.write("                color: white;\n");
@@ -62,7 +62,7 @@ public final class LogIn_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                font-size: 16px;\n");
       out.write("            }\n");
       out.write("\n");
-      out.write("            .button:hover {\n");
+      out.write("            button:hover {\n");
       out.write("                background-color: black;\n");
       out.write("                color: white;\n");
       out.write("            }\n");
