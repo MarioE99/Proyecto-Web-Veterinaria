@@ -4,7 +4,9 @@
     Author     : meev9
 --%>
 
+<%@ page import="java.util.*" import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="edu.ujmd.conexiones.Conexion" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -91,7 +93,7 @@
                 </select>
             </div>
             <div>
-                <label for="idcargo">Cargo del empleadp:</label>
+                <label for="idcargo">Cargo del empleado:</label>
                 <select name="Cargo" id="cargo">
                     <option value="Programador">Programador</option>
                     <option value="Gerenteventas">Gerente de ventas</option>
@@ -131,5 +133,53 @@
             <input class="button" type="button" value="Enviar">
 
         </form>
+        
+        
+         <!--TABLA DE empleados-->
+        <div class ="row col-md-6" style="margin-left: 400px; margin-top: -200px;">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>numero de turno</th>
+                 <th>Nombre del cargo</th>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Telefono</th>
+                  <th>DUI</th>
+                  <th>Cargo</th>
+                  
+                  
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                Conexion con = new Conexion();
+                con.setRs("SELECT * FROM empleados");
+                ResultSet rs = con.getRs();
+                while(rs.next()){         
+            %>
+            <tr>
+                <td><%=rs.getString("id") %></td>
+                <td><%=rs.getString("id_turno") %></td>
+                 <td><%=rs.getString("id_cargo") %></td>
+                <td><%=rs.getString("Nombre") %></td>
+                <td><%=rs.getString("Apellido") %></td>
+                <td><%=rs.getString("Telefono") %></td>
+                <td><%=rs.getString("DUI") %></td>
+                <td><%=rs.getString("Cargo") %></td>
+                
+                <td><a class="btn btn-danger" href="eliminarempleados.jsp?id=<%=rs.getString("id") %>">Eliminar</a></td>
+            </tr>
+            <% 
+                }
+            con.cerrarConexion();
+            %>
+        </tbody>
+    </table>
+</div>
+        
+        
+        
     </body>
 </html>

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -27,6 +28,10 @@ public class TurnoJpaController implements Serializable {
 
     public TurnoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+    
+    public TurnoJpaController() {
+        this.emf = Persistence.createEntityManagerFactory("ProyectoVeterinariaWebPU");
     }
     private EntityManagerFactory emf = null;
 

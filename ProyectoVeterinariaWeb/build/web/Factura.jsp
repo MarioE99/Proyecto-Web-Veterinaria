@@ -4,7 +4,9 @@
     Author     : meev9
 --%>
 
+<%@ page import="java.util.*" import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="edu.ujmd.conexiones.Conexion" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -117,5 +119,45 @@
             <input class="button" type="button" value="Enviar">
 
         </form>
+
+        <!--TABLA DE facturas-->
+        <div class ="row col-md-6" style="margin-left: 400px; margin-top: -200px;">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre de cliente</th>
+                        <th>Numero de sucursal</th>
+                        <th>Numero de factura</th>
+                        <th>Fecha</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        Conexion con = new Conexion();
+                        con.setRs("SELECT * FROM factura");
+                        ResultSet rs = con.getRs();
+                        while (rs.next()) {
+                    %>
+                    <tr>
+                        <td><%=rs.getString("id")%></td>
+                        <td><%=rs.getString("id_cliente")%></td>
+                        <td><%=rs.getString("id_sucursal")%></td>
+                        <td><%=rs.getString("numFactura")%></td>
+                        <td><%=rs.getString("fecha")%></td>
+
+                        <td><a class="btn btn-danger" href="eliminarfactura.jsp?id=<%=rs.getString("id")%>">Eliminar</a></td>
+                    </tr>
+                    <%
+                        }
+                        con.cerrarConexion();
+                    %>
+                </tbody>
+            </table>
+        </div>
+
+
+
     </body>
 </html>
