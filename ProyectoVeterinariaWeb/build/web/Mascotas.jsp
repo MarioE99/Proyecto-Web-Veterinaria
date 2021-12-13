@@ -4,7 +4,9 @@
     Author     : meev9
 --%>
 
+<%@ page import="java.util.*" import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="edu.ujmd.conexiones.Conexion" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -133,5 +135,51 @@
             <input class="button" type="button" value="Enviar">
 
         </form>
+
+        <!--TABLA DE Mascotas-->
+        <div class ="row col-md-6" style="margin-left: 400px; margin-top: -200px;">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre del cliente</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Raza</th>
+                        <th>Genero</th>
+                        <th>Peso</th>
+                        <th>Estado Vacuna</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        Conexion con = new Conexion();
+                        con.setRs("SELECT * FROM mascotas");
+                        ResultSet rs = con.getRs();
+                        while (rs.next()) {
+                    %>
+                    <tr>
+                        <td><%=rs.getString("id")%></td>
+                        <td><%=rs.getString("id_clientes")%></td>
+                        <td><%=rs.getString("Nombre")%></td>
+                        <td><%=rs.getString("Edad")%></td>
+                        <td><%=rs.getString("Raza")%></td>
+                        <td><%=rs.getString("Genero")%></td>
+                        <td><%=rs.getString("Peso")%></td>
+                        <td><%=rs.getString("Estado_Vacuna")%></td>
+
+                        <td><a class="btn btn-danger" href="eliminarmascotas.jsp?id=<%=rs.getString("id")%>">Eliminar</a></td>
+                    </tr>
+                    <%
+                        }
+                        con.cerrarConexion();
+                    %>
+                </tbody>
+            </table>
+        </div>
+
+
+
     </body>
 </html>

@@ -17,6 +17,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -53,6 +54,27 @@ public class UsuariosJpaController implements Serializable {
                 codRol = em.merge(codRol);
             }
             em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    public void searchUser(Usuarios usuarios) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager(); 
+            Usuarios valido = new Usuarios();
+            TypedQuery<Usuarios> consultausuario = em.createNamedQuery("findByUseCon", Usuarios.class);
+            consultausuario.setParameter("usuario", usuarios.getUsuario());
+            consultausuario.setParameter("contrase\u00f1a", usuarios.getContraseña());
+            valido = consultausuario.getSingleResult();
+            System.out.println("*************Usuario*********");      
+            System.out.println(valido.getCodUsuarios()+ "," +   valido.getUsuario() + "," + valido.getContraseña());
+                      
+       } catch (Exception ex) {
+            System.out.println("ERROR searchUser " + ex.getMessage());
         } finally {
             if (em != null) {
                 em.close();
